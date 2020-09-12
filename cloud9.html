@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+Edited by Xuhua "{{frontName}}" Sun (xsun57@jhu.edu) in HopHacks 2020<br/>
+Cafe
+<hr/>
+{% for key in frontDict %}
+{{key[1]}} (@ {{frontDict[key][0]}})<br/>
+Rate: {{frontDict[key][2]}} (with total {{frontDict[key][3]}} comments)<br/>
+<br/>
+<br/>
+{% endfor %}
+</body>
+</html>
