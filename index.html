@@ -1,17 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>TASKforce</title>
+<html>
+<head>
+	<title>TASKforce</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-	</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<body>
-		<div id="page">
-			<h1>Welcome to TASKforce App!</h1>
-			<h3>Search</h3>
-			<h2>Map/List will go here somewhere</h2>
-		</div>
-	</body>
-</html>
+<style>
+
+body {
+  font-family: Arial;
+  background:black
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+h1 {
+	text-align: center;
+	color:lightsteelblue;
+}
+h4 {
+	text-align: center;
+	color: lightsteelblue;
+}
+</style>
+</head>
+<body>
+	<h1>Welcome to TASKforce App!</h1>
+<form class="example" action="/action_page.php">
+  <input type="text" placeholder="Search" name="search">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+<h4>With more and more places starting to reopen after lockdown, it can be difficult knowing which restaurants, theaters, gyms, etc. are following proper guidelines and are safe to visit.</h4>
+<h4>TASKforce solves this problem, allowing you to view ratings assessing the safety of any public places, and also rate the safety of any places you have been to, helping mitigate the further spread of COVID-19.</h4>
+</body>
+</html> 
