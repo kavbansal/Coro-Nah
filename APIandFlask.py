@@ -80,9 +80,9 @@ places_dict = {}  # The key is (place_id, name); the value is [vicinity, types, 
 backName = "Cloud9"
 @app.route("/")
 def index():
-    return render_template("SearchC9.html", frontName=backName)
+    return render_template("index.html", frontName=backName)
 
-@app.route("/SearchC9", methods=['post'])
+@app.route("/results", methods=['post'])
 def search():
     # Define the supported search type
     type = request.form.get("type")
@@ -95,11 +95,11 @@ def search():
         # places_dict.update(StorePlaces(places_result))
         backType = type
         backDict = places_dict
-        return render_template("ResultC9.html", frontName=backName, frontType=backType, frontDict=backDict)
+        return render_template("results.html", frontName=backName, frontType=backType, frontDict=backDict)
     else:
-        return render_template("SearchC9.html", frontName=backName)
+        return render_template("index.html", frontName=backName)
 
-@app.route("/ResultC9", methods=['post'])
+@app.route("/place", methods=['post'])
 def comment():
     # Dive into detail page and can make comments
     place_id = request.form.get("place_id")

@@ -3,12 +3,12 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<title>Search Results</title>
 <style>
 
 ul {
   position: absolute;
-  top: 110px;
+  top: 180px;
   bottom: 20px;
   left: 20px;
   right: 20px;
@@ -77,31 +77,20 @@ form.example::after {
   <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 <h2> Results </h2>
+<hr/>
+You have searched Type: "{{frontType}}"
+<hr/>
 <ul class="w3-ul w3-border w3-white w3-text-grey">
-        <li class="w3-padding">Result 1</li>
-        <li class="w3-padding">Result 2</li>
-        <li class="w3-padding">Result 3</li>
-        <li class="w3-padding">Result 4</li>
-        <li class="w3-padding">Result 5</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-        <li class="w3-padding">Result</li>
-      </ul>
-
+    {% for key in frontDict %}
+        <li class="w3-padding">{{key[1]}} (@ {{frontDict[key][0]}})<br>
+            Rate: {{frontDict[key][2]}} (with total {{frontDict[key][3]}} comments)
+            <form action="/place", method="POST">
+                <input type="hidden" value="{{key[0]}}" name="place_id">
+                <input type="hidden" value="{{key[1]}}" name="name">
+                <input type="submit" value="Select">
+        </form>
+        </li>
+        {% endfor %}  
+    </ul>
 </body>
 </html> 
