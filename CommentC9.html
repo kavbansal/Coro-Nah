@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+</head>
+<body>
+Comment Page<br/>
+Edited by Xuhua "{{frontName}}" Sun (xsun57@jhu.edu) in HopHacks 2020<br/>
+<hr/>
+Showing the detail of: "{{frontPlaceName}}" (@ {{frontAddress}})
+<hr/>
+Current Rate is: {{frontRate}} with {{frontNum}} of comments<br/>
+Index 1 -----Mask Wearing-----<br/>
+Index 2 -----Air Condition-----<br/>
+Index 3 -----Sanitization-----<br/>
+<hr/>
+Comment to help us improve?<br/>
+(1 indicates Very Poor; 2 indicates relatively poor; 3 indicates normal; 4 indicates relatively good; 5 indicates Very Good)<br/>
+<br/>
+    <form action="/CommentC9", method="POST">
+        Index 1
+        <input type="radio" value="a" name="i1"/>1
+        <input type="radio" value="b" name="i1"/>2
+        <input type="radio" value="c" name="i1"/>3
+        <input type="radio" value="d" name="i1"/>4
+        <input type="radio" value="e" name="i1"/>5<br/>
+        Index 2
+        <input type="radio" value="a" name="i2"/>1
+        <input type="radio" value="b" name="i2"/>2
+        <input type="radio" value="c" name="i2"/>3
+        <input type="radio" value="d" name="i2"/>4
+        <input type="radio" value="e" name="i2"/>5<br/>
+        Index 3
+        <input type="radio" value="a" name="i3"/>1
+        <input type="radio" value="b" name="i3"/>2
+        <input type="radio" value="c" name="i3"/>3
+        <input type="radio" value="d" name="i3"/>4
+        <input type="radio" value="e" name="i3"/>5<br/>
+        <input type="submit" value="Send!">
+    </form>
+</body>
+</html>

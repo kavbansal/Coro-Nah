@@ -44,7 +44,7 @@ def StorePlaces(places_result):
 # ==========================================================
 # ==========================================================
 # Fill YOUR key get from Google (might change in the future)
-API_Key = 'AIzaSyDtxFWPkJsohSkOvf0XxSfXRQU0Uyf621E'
+API_Key = 'AIzaSyCceg_U0TSY0sASEeVcPV3WXw0NDYHL0j4'
 # ==========================================================
 # ==========================================================
 
@@ -77,27 +77,39 @@ types_set = {"accounting", "airport", "amusement_park", "aquarium", "art_gallery
 # Initialize a dictionary to store places
 places_dict = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews]
 
+backName = "Cloud9"
 @app.route("/")
-def search():
-    return render_template("search.html")
-
-@app.route("/search", methods=['post'])
 def index():
+    return render_template("SearchC9.html", frontName=backName)
+
+@app.route("/SearchC9", methods=['post'])
+def search():
     # Define the supported search type
     type = request.form.get("type")
     if type in types_set:
         places_result = NearbySearch(location, radius, type)
         # Store the first page of search
-        places_dict = StorePlaces(places_result)
+        places_dict.update(StorePlaces(places_result))
         # places_result = NearbySearch2nd(places_result)
         # # Update the places dictionary
         # places_dict.update(StorePlaces(places_result))
-        backName = "Cloud9"
         backType = type
         backDict = places_dict
-        return render_template("cloud9.html", frontName=backName, frontType=backType, frontDict=backDict)
+        return render_template("ResultC9.html", frontName=backName, frontType=backType, frontDict=backDict)
     else:
-        return render_template("search.html")
+        return render_template("SearchC9.html", frontName=backName)
+
+@app.route("/ResultC9", methods=['post'])
+def comment():
+    # Dive into detail page and can make comments
+    place_id = request.form.get("place_id")
+    name = request.form.get("name")
+    address = places_dict[(place_id, name)][0]
+    types = places_dict[(place_id, name)][1]
+    rate = places_dict[(place_id, name)][2]
+    num_of_views = places_dict[(place_id, name)][3]
+    return render_template("CommentC9.html", frontName=backName, frontPlaceName=name, frontAddress=address,
+                           frontRate=rate, frontNum=num_of_views)
 
 if __name__ == '__main__':
     app.run(debug=True)
