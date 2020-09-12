@@ -10,7 +10,20 @@ import googlemaps
 import time
 # import pprint
 
-def StorePlaces(places_results):
+def NearbySearch(location, radius, type):
+    # Define our search and initialize the search(using Nearby Search)
+    result = gmaps.places_nearby(location=location, radius=radius, open_now=False, type=type)
+    # Every time 20 results in total
+    return result
+
+def NearbySearch2nd(places_result):
+    # Wait for second search (Must)
+    time.sleep(2)
+    # Store the next page of search
+    result = gmaps.places_nearby(page_token=places_result['next_page_token'])
+    return result
+
+def StorePlaces(places_result):
     dict = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews]
     # Loop the places in response results
     for place in places_result['results']:
@@ -40,41 +53,51 @@ app = Flask(__name__, template_folder=".")
 # Define our client
 gmaps = googlemaps.Client(key=API_Key)
 
+# Locate the region (we "FIXED" 40km around JHU here)
+location = '39.3299013,-76.6227064'  # coordinate of Johns Hopkins University, Homewood Campus
+radius = 40000  # units: meters
+
+# Initialize a set to store types supported by Google Places API
+# See documentations in this link (https://developers.google.com/places/web-service/supported_types)
+types_set = {"accounting", "airport", "amusement_park", "aquarium", "art_gallery", "atm", "bakery", "bank", "bar",
+             "beauty_salon", "bicycle_store", "book_store", "bowling_alley", "bus_station", "cafe", "campground",
+             "car_dealer", "car_rental", "car_repair", "car_wash", "casino", "cemetery", "church", "city_hall",
+             "clothing_store", "convenience_store", "courthouse", "dentist", "department_store", "doctor", "drugstore",
+             "electrician", "electronics_store", "embassy", "fire_station", "florist", "funeral_home", "furniture_store",
+             "gas_station", "gym", "hair_care", "hardware_store", "hindu_temple", "home_goods_store", "hospital",
+             "insurance_agency", "jewelry_store", "laundry", "lawyer", "library", "light_rail_station", "liquor_store",
+             "local_government_office", "locksmith", "lodging", "meal_delivery", "meal_takeaway", "mosque", "movie_rental",
+             "movie_theater", "moving_company", "museum", "night_club", "painter", "park", "parking", "pet_store",
+             "pharmacy", "physiotherapist", "plumber", "police", "post_office", "primary_school", "real_estate_agency",
+             "restaurant", "roofing_contractor", "rv_park", "school", "secondary_school", "shoe_store", "shopping_mall",
+             "spa", "stadium", "storage", "store", "subway_station", "supermarket", "synagogue", "taxi_stand",
+             "tourist_attraction", "train_station", "transit_station", "travel_agency", "university", "veterinary_care",
+             "zoo"}
+
 # Initialize a dictionary to store places
 places_dict = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews]
 
-# Locate the region
-location = '39.3299013,-76.6227064'  # coordinate of Johns Hopkins University, Homewood Campus
-radius = 40000  # units: meters
-# Define the supported search type (we use cafe here)
-type = 'cafe'
-# Define our search and initialize the search(using Nearby Search)
-places_result = gmaps.places_nearby(location=location, radius=radius, open_now=False, type=type)
-# Every time 20 results in total
-
-# Store the first page of search
-places_dict = StorePlaces(places_result)
-
-# Wait for second search (Must)
-time.sleep(3)
-# Store the next page of search
-places_result = gmaps.places_nearby(page_token=places_result['next_page_token'])
-# Update the places dictionary
-places_dict.update(StorePlaces(places_result))
-
-# # Print the Results
-# for item in places_dict.keys():
-#     print('Name:', item[1], '(Address:', places_dict[item][0], ')')
-#     # print('Related Types:', places_dict[item][1])
-#     print('Total Rate:', places_dict[item][2], '(with', places_dict[item][3], 'views currently)')
-#     print('\n')
-
 @app.route("/")
+def search():
+    return render_template("search.html")
+
+@app.route("/search", methods=['post'])
 def index():
-    backName = "Cloud9"
-    backLst = []
-    backDict = places_dict
-    return render_template("cloud9.html", frontName=backName, frontLst=backLst, frontDict=backDict)
+    # Define the supported search type
+    type = request.form.get("type")
+    if type in types_set:
+        places_result = NearbySearch(location, radius, type)
+        # Store the first page of search
+        places_dict = StorePlaces(places_result)
+        # places_result = NearbySearch2nd(places_result)
+        # # Update the places dictionary
+        # places_dict.update(StorePlaces(places_result))
+        backName = "Cloud9"
+        backType = type
+        backDict = places_dict
+        return render_template("cloud9.html", frontName=backName, frontType=backType, frontDict=backDict)
+    else:
+        return render_template("search.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
