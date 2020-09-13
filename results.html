@@ -72,10 +72,10 @@ form.example::after {
 </head>
 <body>
 
-<form class="example" action="/action_page.php">
-  <input type="text" placeholder="Search" name="search">
-  <button type="submit"><i class="fa fa-search"></i></button>
-</form>
+    <form class="example" action="/results", method="POST">
+		<input type="text" placeholder="Search" name="type">
+		<button type="submit"><i class="fa fa-search"></i></button>
+	  </form>
 <h2> Results </h2>
 <hr/>
 You have searched Type: "{{frontType}}"
