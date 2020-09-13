@@ -4,6 +4,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCceg_U0TSY0sASEeVcPV3WXw0NDYHL0j4&sensor=false">
+    </script>
+
+    <script>
+    function initialize()
+    {
+    var mapProp = {
+      center:new google.maps.LatLng({{frontLat}}, {{frontLng}}),
+      zoom:16,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    var marker = new google.maps.Marker({position:new google.maps.LatLng({{frontLat}}, {{frontLng}}),});
+    marker.setMap(map);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 <style>
 
     *, *::before, *::after {
@@ -92,7 +110,6 @@ h3 {
 h4 {
 	text-align: center;
 }
-
     
     </style>
 </head>
@@ -110,7 +127,7 @@ h4 {
 <h4>Masks:{{frontrt1}} </h4>
 <h4>Social Distancing:{{frontrt2}} </h4>
 <h4>Sanitization:{{frontrt3}} </h4>
-
+<div id="googleMap" style="width:500px;height:380px;margin:0 auto;"></div>
 <h2> Rate {{frontPlaceName}}! </h2>
 <h3>If you have been to {{frontPlaceName}} recently, please rate its safety on the following guidelines</h3>
 <form action="/Comment", method="POST">
