@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCceg_U0TSY0sASEeVcPV3WXw0NDYHL0j4&sensor=false">
+    </script>
+
+    <script>
+    function initialize()
+    {
+    var mapProp = {
+      center:new google.maps.LatLng({{frontLat}}, {{frontLng}}),
+      zoom:16,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    var marker = new google.maps.Marker({position:new google.maps.LatLng({{frontLat}}, {{frontLng}}),});
+    marker.setMap(map);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+
+<body>
+Comment Page<br/>
+Edited by Xuhua "{{frontName}}" Sun (xsun57@jhu.edu) in HopHacks 2020<br/>
+<hr/>
+Showing the detail of: "{{frontPlaceName}}" (@ {{frontAddress}})
+<hr/>
+Current Rate is: {{frontRate}} with {{frontNum}} of comments<br/>
+Index 1 Mask Wearin: {{frontrt1}}<br/>
+Index 2 Air Condition:{{frontrt2}}<br/>
+Index 3 Sanitization:{{frontrt3}}<br/>
+<hr/>
+<div id="googleMap" style="width:500px;height:380px;"></div>
+Comment to help us improve?<br/>
+(1 indicates Very Poor; 2 indicates relatively poor; 3 indicates normal; 4 indicates relatively good; 5 indicates Very Good)<br/>
+<br/>
+    <form action="/CommentC9", method="POST">
+    	<input type="hidden" value="{{frontPlaceID}}" name="place_id">
+        Index 1
+        <input type="radio" value="1" name="i1"/>1
+        <input type="radio" value="2" name="i1"/>2
+        <input type="radio" value="3" name="i1"/>3
+        <input type="radio" value="4" name="i1"/>4
+        <input type="radio" value="5" name="i1"/>5<br/>
+        Index 2
+        <input type="radio" value="1" name="i2"/>1
+        <input type="radio" value="2" name="i2"/>2
+        <input type="radio" value="3" name="i2"/>3
+        <input type="radio" value="4" name="i2"/>4
+        <input type="radio" value="5" name="i2"/>5<br/>
+        Index 3
+        <input type="radio" value="1" name="i3"/>1
+        <input type="radio" value="2" name="i3"/>2
+        <input type="radio" value="3" name="i3"/>3
+        <input type="radio" value="4" name="i3"/>4
+        <input type="radio" value="5" name="i3"/>5<br/>
+        <input type="submit" value="Send!">
+    </form>
+</body>
+
+</html>

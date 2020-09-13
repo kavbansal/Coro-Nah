@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCceg_U0TSY0sASEeVcPV3WXw0NDYHL0j4&sensor=false">
+    </script>
+
+    <script>
+    function initialize()
+    {
+    var mapProp = {
+      center:new google.maps.LatLng(39.3299013, -76.6227064),
+      zoom:11.00,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    var marker = new google.maps.Marker({position:new google.maps.LatLng(39.3299013, -76.6227064),});
+    marker.setMap(map);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<body>
+Search Page<br/>
+Edited by Xuhua "{{frontName}}" Sun (xsun57@jhu.edu) in HopHacks 2020<br/>
+<hr/>
+    <form action="/SearchC9", method="POST">
+        Type What You Want to Explore: <input type="text" name="type">
+        <input type="submit" value="Search">
+    </form>
+<hr/>
+<div id="googleMap" style="width:500px;height:380px;"></div>
+</body>
+</html>
