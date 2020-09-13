@@ -10,11 +10,11 @@ Our software solution allows users to determine which places are safe to visit a
 ## How we built it
 We built our application using Python/Flask for the backend and HTML/CSS, with some use of Bootstrap for the frontend. We also used both the Google Maps and the Google Places APIs.
 ## Challenges We ran into
-This was our first hackathon and all of us were unfamiliar with building a web app in Python, however we each played to our strengths and rapidly learned new skills to develop a product we were happy with.
+This was our first hackathon and all of us were unfamiliar with building a web app in Python, however we each played to our strengths and rapidly learned new skills to develop a product we were happy with. We ran into some issues connecting the database to the rest of our application, but by working as a team we were able to resolve the issues.
 ## Accomplishments that I'm proud of
 Our search bar is very useful and an integral component of the app. Additionally, we have a map display for every place a user can select, and we were able to break down health safety guidelines into 3 primary categories, each of which carries its own rating before being aggregated into the total.
 ## What I learned
 How to work with a team in a fast-paced environment to develop a software product we are all enthusiastic about. Also, how to utilize Google Cloud Platform
 and the Google Places API.
 ## What's next for Coro-Nah
-Adding more functionalities.
+We can't wait to add more features and functionality to our application. We would like to extend the program to work in any Zip Code and also add autocomplete to our search bar to make it even easier to use. We would also like to make further UI improvements, possibly including displaying the ratings in a more engaging, color-coded manner. In the future, we also believe a mobile application would be useful, even though our web app can be accessed from mobile.
