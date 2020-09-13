@@ -2,11 +2,50 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <style>
 
     *, *::before, *::after {
       box-sizing: border-box;
     }
+
+    body {
+  font-family: Arial;
+  background:lightgray;
+}
+
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
     
     html, body {
       width: 100%;
@@ -14,6 +53,7 @@
     }
     body {
   font-family: Arial;
+  background:lightgray;
 }
     form {
       background: #fff;
@@ -24,6 +64,7 @@
       max-width: 540px;
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
       border-radius: 3px;
+      text-align: center;
     }
     
     group + group {
@@ -33,9 +74,22 @@
     .inline-radio {
         display: flex;
         overflow: hidden;
+        
     }
 
 h2 {
+	text-align: center;
+}
+
+h1 {
+	text-align: center;
+}
+
+h3 {
+	text-align: center;
+}
+
+h4 {
 	text-align: center;
 }
 
@@ -43,48 +97,53 @@ h2 {
     </style>
 </head>
 <body>
+    <form class="example" action="/results", method="POST">
+		<input type="text" placeholder="Search" name="type">
+		<button type="submit"><i class="fa fa-search"></i></button>
+	  </form>
 
 
-
-<h1> Place Name <h5> </h1>
-<h3> Address </h3>
+<h1>{{frontPlaceName}}<h5> </h1>
+<h3>{{frontAddress}}</h3>
 <h3>Average Scores</h3>
 <h4>Overall: </h4>
 <h4>Masks: </h4>
 <h4>Social Distancing: </h4>
 <h4>Sanitization: </h4>
 
-<h2> Rate this place! </h2>
+<h2> Rate {{frontPlaceName}}! </h2>
 <form>
-<h3>If you have been to this place, please rate its safety on the following guidelines</h3>
+<h3>If you have been to {{frontPlaceName}} recently, please rate its safety on the following guidelines</h3>
 <h4>Masks</h4>
 <group class="inline-radio">
-	<div><input type="radio" name="masks"><label>Unsafe </label></div>
-	<div><input type="radio" name="masks"><label>Risky </label></div>
-	<div><input type="radio" name="masks"><label>Iffy </label></div>
-	<div><input type="radio" name="masks" checked><label>Pretty Safe </label></div>
-	<div><input type="radio" name="masks"><label>Safe</label></div>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <div><input type="radio" value = "1" name="masks"><label>&nbspUnsafe&nbsp&nbsp</label></div>
+	<div><input type="radio" value = "2" name="masks"><label>&nbspRisky&nbsp&nbsp</label></div>
+	<div><input type="radio" value = "3" name="masks"><label>&nbspIffy&nbsp&nbsp</label></div>
+	<div><input type="radio" value = "4" name="masks" checked><label>&nbspPretty Safe&nbsp&nbsp</label></div>
+	<div><input type="radio" value = "5" name="masks"><label>&nbspSafe&nbsp&nbsp</label></div>
 </group>
 <h4>Social Distancing</h4>
 <group class="inline-radio">
-	<div><input type="radio" name="distance"><label>Unsafe </label></div>
-	<div><input type="radio" name="distance"><label>Risky </label></div>
-	<div><input type="radio" name="distance"><label>Iffy </label></div>
-	<div><input type="radio" name="distance" checked><label>Pretty Safe </label></div>
-	<div><input type="radio" name="distance"><label>Safe</label></div>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	<div><input type="radio" value = "1" name="distance"><label>&nbspUnsafe&nbsp&nbsp </label></div>
+	<div><input type="radio" value = "2" name="distance"><label>&nbspRisky&nbsp&nbsp </label></div>
+	<div><input type="radio" value = "3" name="distance"><label>&nbspIffy&nbsp&nbsp </label></div>
+	<div><input type="radio" value = "4" name="distance" checked><label>&nbspPretty Safe&nbsp&nbsp </label></div>
+	<div><input type="radio" value = "5" name="distance"><label>&nbspSafe&nbsp&nbsp</label></div>
 </group>
 <h4>Sanitization</h4>
 <group class="inline-radio">
-	<div><input type="radio" name="clean"><label>Unsafe </label></div>
-	<div><input type="radio" name="clean"><label>Risky </label></div>
-	<div><input type="radio" name="clean"><label>Iffy </label></div>
-	<div><input type="radio" name="clean" checked><label>Pretty Safe </label></div>
-	<div><input type="radio" name="clean"><label>Safe</label></div>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	<div><input type="radio" value = "1" name="clean"><label>&nbspUnsafe&nbsp&nbsp</label></div>
+	<div><input type="radio" value = "2" name="clean"><label>&nbspRisky&nbsp&nbsp</label></div>
+	<div><input type="radio" value = "3" name="clean"><label>&nbspIffy&nbsp&nbsp </label></div>
+	<div><input type="radio" value = "4" name="clean" checked><label>&nbspPretty Safe&nbsp&nbsp </label></div>
+	<div><input type="radio" value = "5" name="clean"><label>&nbspSafe&nbsp&nbsp</label></div>
 </group>
 <br>
 <button>Submit</button>
 </form>
-
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
-</html> 
+</html>

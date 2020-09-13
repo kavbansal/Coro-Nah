@@ -10,9 +10,9 @@ import googlemaps
 import time
 # import pprint
 
-def NearbySearch(location, radius, type):
+def NearbySearch(location, radius, type1):
     # Define our search and initialize the search(using Nearby Search)
-    result = gmaps.places_nearby(location=location, radius=radius, open_now=False, type=type)
+    result = gmaps.places_nearby(keyword = type1, location=location, radius=radius, open_now=False)
     # Every time 20 results in total
     return result
 
@@ -24,7 +24,7 @@ def NearbySearch2nd(places_result):
     return result
 
 def StorePlaces(places_result):
-    dict = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews, lat, lng]
+    dictionary1 = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews, lat, lng]
     # Loop the places in response results
     for place in places_result['results']:
         # Define place ID
@@ -36,8 +36,8 @@ def StorePlaces(places_result):
         num_of_reviews = 0
         lat = place['geometry']['location']['lat']
         lng = place['geometry']['location']['lng']
-        dict[(place_id, name)] = [vicinity, types, rate, num_of_reviews, lat, lng]
-    return dict
+        dictionary1[(place_id, name)] = [vicinity, types, rate, num_of_reviews, lat, lng]
+    return dictionary1
 
 # Define api key (automatically get or filled by yourself, see below)
 # from GoogleMapsAPIKey import get_my_key
@@ -79,31 +79,28 @@ types_set = {"accounting", "airport", "amusement_park", "aquarium", "art_gallery
 # Initialize a dictionary to store places
 places_dict = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews]
 
-backName = "Cloud9"
 @app.route("/")
 def index():
-    return render_template("SearchC9.html", frontName=backName)
+    return render_template("index.html")
 
-@app.route("/SearchC9", methods=['post'])
+@app.route("/results", methods=['post'])
 def search():
     # Define the supported search type
-    type = request.form.get("type")
-    type = str.lower(type)
+    type1 = request.form.get("type")
+    type1 = str.lower(type1)
 
-    if type in types_set:
-        places_result = NearbySearch(location, radius, type)
-        # Store the first page of search
-        places_dict.update(StorePlaces(places_result))
-        # places_result = NearbySearch2nd(places_result)
-        # # Update the places dictionary
-        # places_dict.update(StorePlaces(places_result))
-        backType = type
-        backDict = places_dict
-        return render_template("ResultC9.html", frontName=backName, frontType=backType, frontDict=backDict)
-    else:
-        return render_template("SearchC9.html", frontName=backName)
+    places_result = NearbySearch(location, radius, type1)
+    # Store the first page of search
+    places_dict.clear()
+    places_dict.update(StorePlaces(places_result))
+    #places_result = NearbySearch2nd(places_result)
+    # # Update the places dictionary
+    #places_dict.update(StorePlaces(places_result))
+    backType = type1
+    backDict = places_dict
+    return render_template("results.html", frontType=backType, frontDict=backDict)
 
-@app.route("/ResultC9", methods=['post'])
+@app.route("/place", methods=['post'])
 def comment():
     # Dive into detail page and can make comments
     place_id = request.form.get("place_id")
@@ -114,7 +111,7 @@ def comment():
     num_of_views = places_dict[(place_id, name)][3]
     lat = places_dict[(place_id, name)][4]
     lng = places_dict[(place_id, name)][5]
-    return render_template("CommentC9.html", frontName=backName, frontPlaceName=name, frontAddress=address,
+    return render_template("place.html", frontPlaceName=name, frontAddress=address,
                            frontRate=rate, frontNum=num_of_views, frontLat=lat, frontLng=lng)
 
 if __name__ == '__main__':
