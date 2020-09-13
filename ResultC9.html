@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Result</title>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCceg_U0TSY0sASEeVcPV3WXw0NDYHL0j4&sensor=false">
+    </script>
 </head>
 <body>
 Result Page<br/>
@@ -10,13 +13,13 @@ Edited by Xuhua "{{frontName}}" Sun (xsun57@jhu.edu) in HopHacks 2020<br/>
 <hr/>
 You have searched Type: "{{frontType}}"
 <hr/>
-{% for key in frontDict %}
-{{key[1]}} (@ {{frontDict[key][0]}})<br/>
-Rate: {{frontDict[key][2]}} (with total {{frontDict[key][3]}} comments)<br/>
+{% for place_key in frontDict %}
+{{place_key[1]}} (@ {{frontDict[place_key][0]}})<br/>
+Rate: {{frontDict[place_key][2]}} (with total {{frontDict[place_key][3]}} comments)<br/>
     <form action="/ResultC9", method="POST">
-            <input type="hidden" value="{{key[0]}}" name="place_id">
-            <input type="hidden" value="{{key[1]}}" name="name">
-            <input type="submit" value="Comment On This!">
+            <input type="hidden" value="{{place_key[0]}}" name="place_id">
+            <input type="hidden" value="{{place_key[1]}}" name="name">
+            <input type="submit" value="Show Detail & Comment On This!">
     </form>
 <br/>
 <br/>

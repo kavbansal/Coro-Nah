@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Comment</title>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCceg_U0TSY0sASEeVcPV3WXw0NDYHL0j4&sensor=false">
+    </script>
+
+    <script>
+    function initialize()
+    {
+    var mapProp = {
+      center:new google.maps.LatLng({{frontLat}}, {{frontLng}}),
+      zoom:16,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+    var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+    var marker = new google.maps.Marker({position:new google.maps.LatLng({{frontLat}}, {{frontLng}}),});
+    marker.setMap(map);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 </head>
+
 <body>
 Comment Page<br/>
 Edited by Xuhua "{{frontName}}" Sun (xsun57@jhu.edu) in HopHacks 2020<br/>
@@ -15,6 +34,7 @@ Index 1 -----Mask Wearing-----<br/>
 Index 2 -----Air Condition-----<br/>
 Index 3 -----Sanitization-----<br/>
 <hr/>
+<div id="googleMap" style="width:500px;height:380px;"></div>
 Comment to help us improve?<br/>
 (1 indicates Very Poor; 2 indicates relatively poor; 3 indicates normal; 4 indicates relatively good; 5 indicates Very Good)<br/>
 <br/>
@@ -40,4 +60,5 @@ Comment to help us improve?<br/>
         <input type="submit" value="Send!">
     </form>
 </body>
+
 </html>

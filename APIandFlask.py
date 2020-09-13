@@ -24,7 +24,7 @@ def NearbySearch2nd(places_result):
     return result
 
 def StorePlaces(places_result):
-    dict = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews]
+    dict = {}  # The key is (place_id, name); the value is [vicinity, types, rate, number of reviews, lat, lng]
     # Loop the places in response results
     for place in places_result['results']:
         # Define place ID
@@ -34,7 +34,9 @@ def StorePlaces(places_result):
         types = place['types']  # Types of this place (more than the searched type), if needed
         rate = 0
         num_of_reviews = 0
-        dict[(place_id, name)] = [vicinity, types, rate, num_of_reviews]
+        lat = place['geometry']['location']['lat']
+        lng = place['geometry']['location']['lng']
+        dict[(place_id, name)] = [vicinity, types, rate, num_of_reviews, lat, lng]
     return dict
 
 # Define api key (automatically get or filled by yourself, see below)
@@ -80,12 +82,14 @@ places_dict = {}  # The key is (place_id, name); the value is [vicinity, types, 
 backName = "Cloud9"
 @app.route("/")
 def index():
-    return render_template("index.html", frontName=backName)
+    return render_template("SearchC9.html", frontName=backName)
 
-@app.route("/results", methods=['post'])
+@app.route("/SearchC9", methods=['post'])
 def search():
     # Define the supported search type
     type = request.form.get("type")
+    type = str.lower(type)
+
     if type in types_set:
         places_result = NearbySearch(location, radius, type)
         # Store the first page of search
@@ -95,11 +99,11 @@ def search():
         # places_dict.update(StorePlaces(places_result))
         backType = type
         backDict = places_dict
-        return render_template("results.html", frontName=backName, frontType=backType, frontDict=backDict)
+        return render_template("ResultC9.html", frontName=backName, frontType=backType, frontDict=backDict)
     else:
-        return render_template("index.html", frontName=backName)
+        return render_template("SearchC9.html", frontName=backName)
 
-@app.route("/place", methods=['post'])
+@app.route("/ResultC9", methods=['post'])
 def comment():
     # Dive into detail page and can make comments
     place_id = request.form.get("place_id")
@@ -108,8 +112,10 @@ def comment():
     types = places_dict[(place_id, name)][1]
     rate = places_dict[(place_id, name)][2]
     num_of_views = places_dict[(place_id, name)][3]
+    lat = places_dict[(place_id, name)][4]
+    lng = places_dict[(place_id, name)][5]
     return render_template("CommentC9.html", frontName=backName, frontPlaceName=name, frontAddress=address,
-                           frontRate=rate, frontNum=num_of_views)
+                           frontRate=rate, frontNum=num_of_views, frontLat=lat, frontLng=lng)
 
 if __name__ == '__main__':
     app.run(debug=True)
