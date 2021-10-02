@@ -32,8 +32,8 @@ def updateDB(placeID, rt1, rt2, rt3): #DB
 	else:
 		plc.count_rev += 1
 		plc.rating_masks = (plc.rating_masks*(plc.count_rev-1) + rt1)/float(plc.count_rev)
-		plc.rating_distancing = (plc.rating_masks*(plc.count_rev-1) + rt1)/float(plc.count_rev)
-		plc.rating_sanitisation = (plc.rating_masks*(plc.count_rev-1) + rt1)/float(plc.count_rev)
+		plc.rating_distancing = (plc.rating_distancing*(plc.count_rev-1) + rt1)/float(plc.count_rev)
+		plc.rating_sanitisation = (plc.rating_sanitisation*(plc.count_rev-1) + rt1)/float(plc.count_rev)
 		plc.rating_avg = (plc.rating_masks + plc.rating_distancing + plc.rating_sanitisation)/3.0
 		db.session.commit()
 
